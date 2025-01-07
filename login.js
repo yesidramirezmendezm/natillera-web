@@ -22,9 +22,11 @@ formulario.addEventListener("submit", function (e) {
     .then((res) => res.json())
     .then((data) => {
       console.log(data); // Muestra la respuesta del servidor
-      if(data.ok ===true){
+       if(data.ok ===true){
+        localStorage.setItem("token",JSON.stringify(data))
         window.location.href = "./perfil/perfil.html";
-      }
+      } 
+
     })
     .catch((error) => {
       console.log("Hubo un problema con la petición Fetch: " + error);

@@ -47,3 +47,21 @@ margin-bottom: 0%;
 width: 175px;  
 box-shadow: 5px 5px 2px;  
 }
+div.cargar img{
+    width: 38px;
+    border: solid;
+    border-radius: 50%;
+    padding: 8px;
+}
+   
+    
+
+
+.cargar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 20px;
+    background-color: #ffb703;
+    margin-top: 40px;
+}
