@@ -24,7 +24,7 @@ formulario.addEventListener("submit", function (e) {
       console.log(data); // Muestra la respuesta del servidor
        if(data.ok ===true){
         localStorage.setItem("token",JSON.stringify(data))
-        window.location.href = "./perfil/perfil.html";
+        window.location.href = "/perfil/REDIRECCION.html";
       } 
 
     })
