@@ -3,7 +3,8 @@ html{
     min-height: 100%;
 }
 body{
-    background: linear-gradient(#219ebc, #b4def1  )
+    background: linear-gradient(#219ebc, #b4def1  );
+    margin: 24px;
 }
 h1{
     text-align: center;
