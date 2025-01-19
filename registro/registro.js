@@ -17,6 +17,9 @@ formulario.addEventListener("submit", function (e) {
   console.log(datos.get("password"));
   console.log(datos.get("passwordConfirm"));
   console.log(datos.get("email"));
+  console.log(datos.get("name"));
+  console.log(datos.get("lastName"));
+  console.log(datos.get("phone_number"));
 
   var password= datos.get("password")
   var passwordConfirm= datos.get("passwordConfirm")
@@ -29,9 +32,13 @@ formulario.addEventListener("submit", function (e) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: datos.get("email"), // Cambia a 'usuario' si el valor está en este campo
+          name: datos.get("name"),
+          last_name: datos.get("lastName"),
+          username: datos.get("usuario"),
           password: datos.get("password"),
-          username: datos.get("usuario")
+          email: datos.get("email"), // Cambia a 'usuario' si el valor está en este campo
+          phone_number: datos.get("phone_number")
+
         }),
     
       }).then((res)=>res.json())
@@ -44,7 +51,7 @@ formulario.addEventListener("submit", function (e) {
             }
             if (data.ok=true){
               localStorage.setItem("token",JSON.stringify(data))
-               window.location.href= "./bienvenida.html"
+              window.location.href = "./bienvenida.html";
             }
             
         }).catch((error) => {

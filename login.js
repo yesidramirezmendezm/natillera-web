@@ -26,7 +26,7 @@ formulario.addEventListener("submit", function (e) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: datos.get("usuario"), // Cambia a 'usuario' si el valor está en este campo
+      field_login: datos.get("usuario"), // Cambia a 'usuario' si el valor está en este campo
       password: datos.get("password"),
     }),
   })
@@ -41,10 +41,10 @@ formulario.addEventListener("submit", function (e) {
         msgError.textContent = "tu contraseña no es correcta";
         alert.classList.toggle("show");
       } else if (data.ok === true) {
-        if (usuario == "davidlealpelaez@gmail.com") {
+        if (data.message.role == "admin") {
           const token = {
             admin: true,
-            token: data.msg,
+            token: data.message,
           };
           localStorage.setItem("token", JSON.stringify(token));
           window.location.href = "./perfil/REDIRECCION.html";
@@ -52,7 +52,7 @@ formulario.addEventListener("submit", function (e) {
           console.log("hasta aqui te trajo el rio");
           const token = {
             admin: false,
-            token: data.msg,
+            token: data.message,
           };
           localStorage.setItem("token", JSON.stringify(token));
           window.location.href = "./perfil/REDIRECCION.html";

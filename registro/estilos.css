@@ -4,7 +4,12 @@ html{
 }
 body{
     background: linear-gradient(#219ebc, #b4def1  );
-    margin: 24px;
+   
+   
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Ocupa toda la altura de la ventana */
+      margin: 0;
 }
 h1{
     text-align: center;
@@ -16,11 +21,20 @@ h2{
     text-align: center;
    color:#023047;
 }
-div.contenedor{
-    border-radius: 10px;
-    text-align: center;
-    margin: 20px;
+.contenedor{
+    width: 300px;
+      height: 200px;
+      background-color: #1a211a ;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   
+    
   
+}
+form{
+    width: 90%;
 }
 .olvide{
     text-align: center;
