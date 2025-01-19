@@ -6,6 +6,9 @@ h1{
     font-family: fantasy;
     
 }
+#container{
+    color: white;
+}
 div.cabecera{
     display: flex;
     justify-content: space-between;

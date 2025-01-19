@@ -1,47 +1,97 @@
-/* const exampleModal = document.getElementById('exampleModal')
-if (exampleModal) {
-  exampleModal.addEventListener('show.bs.modal', event => {
-    // Button that triggered the modal
-    const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    const recipient = button.getAttribute('data-bs-whatever')
-    // If necessary, you could initiate an Ajax request here
-    // and then do the updating in a callback.
+const token = JSON.parse(localStorage.getItem("token"));
+console.log(token);
 
-    // Update the modal's content.
-    const modalTitle = exampleModal.querySelector('.modal-title')
-    const modalBodyInput = exampleModal.querySelector('.modal-body input')
+const handleDataModal = (id) => {
+  const amount = document.querySelector(`#amount-${id}`);
+  const paymentMethod = document.querySelector(`#payment-method-${id}`);
 
-    modalTitle.textContent = `New message to ${recipient}`
-    modalBodyInput.value = recipient
-  })
-}
-var user_id = document.getElementById ();
-var amount = document.getElementById ("recipient-name")
- var selector= document.getElementById("form-select")
- 
-  "type": "cash",
-  "status": "completed"
- */
-
-/* if (exampleModal) {
-  exampleModal.addEventListener("show.bs.modal", (event) => {
-    // Button that triggered the modal
-    const button = event.relatedTarget;
-    // Extract info from data-bs-* attributes
-    const recipient = button.getAttribute("data-bs-whatever");
-    // If necessary, you could initiate an Ajax request here
-    // and then do the updating in a callback.
-
-    // Update the modal's content.
-    const modalTitle = exampleModal.querySelector(".modal-title");
-    const modalBodyInput = exampleModal.querySelector(".modal-body input");
-
-    modalTitle.textContent = `New message to ${recipient}`;
-    modalBodyInput.value = recipient;
+  console.log({
+    user_id: id,
+    amount: parseInt(amount?.value) || "No se ingresó cantidad",
+    type: paymentMethod?.value || "No se seleccionó forma de pago",
+    status: "completed",
   });
-} */
+
+  fetch("http://54.227.80.41:3000/api/v1/transactions/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: id,
+      amount: parseInt(amount?.value),
+      type: paymentMethod?.value,
+      status: "completed",
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data, "OIS! ve mira!");
+      if(data.ok===true){ 
+        window.location.reload();
+      }
+    })
+    .catch((error) => {
+      console.log("Hubo un problema con la petición Fetch: " + error);
+    });
+};
+
+fetch("http://54.227.80.41:3000/api/v1/users/users", {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${token.token}`,
+  },
+})
+  .then((response) => response.json())
+  .then((data) => mostrardata(data))
+  .catch((error) => console.log(error));
 
 
 
-
+const mostrardata = (data) => {
+  let body = "";
+  for (let i = 0; i < data.data.length; i++) {
+    body += `
+      <tr>
+        <td>${data.data[i].uid}</td>
+        <td>${data.data[i].name} ${data.data[i].last_name}</td>
+        <td>${data.data[i].balance}</td>
+        <td>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-${i}">
+            <img src="/perfil/hucha.png" alt="Hucha">
+          </button>
+        </td>
+      </tr>
+      <div class="modal fade" id="modal-${i}" tabindex="-1" aria-labelledby="exampleModalLabel-${i}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel-${i}">${data.data[i].name}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="formModal-${data.data[i].uid}">
+                <div class="mb-3">
+                  <label for="amount-${i}" class="col-form-label">Depositar abono:</label>
+                  <input type="number" class="form-control" id="amount-${data.data[i].uid}" name="amount" placeholder="Cantidad" required>
+                </div>
+                <div class="form-floating">
+                  <select class="form-select" id="payment-method-${data.data[i].uid}" name="payment_method">
+                    <option selected value="">Forma de pago</option>
+                    <option value="cash">Efectivo</option>
+                    <option value="transfer">Transferencia</option>
+                  </select>
+                  <label for="payment-method-${i}">Forma de pago</label>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" onclick="handleDataModal(${data.data[i].uid})">Enviar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+  document.getElementById("data").innerHTML = body;
+};
