@@ -1,5 +1,15 @@
+html{
+    height: auto;
+    min-height: 100%;
+}
 body{
-    margin: 0%;
+    background:url(/registro/fondo.png),  linear-gradient(#219ebc, #b4def1  );
+    justify-content: center;
+      align-items: center;
+      height: 100vh; /* Ocupa toda la altura de la ventana */
+      margin: 0;
+
+
 }
 h1{
     color: white;
@@ -8,6 +18,7 @@ h1{
 }
 #container{
     color: white;
+    text-transform: capitalize;
 }
 div.cabecera{
     display: flex;
@@ -25,30 +36,35 @@ div.cabecera img{
     text-align: center;
     width: 100%;
 margin-bottom: 3px;
+margin-top: 45px
 }
 .sueldo{
-    display: flex;
+    display: ;
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
     padding-top: 20px;
     padding-left: 10px;
+
 }
 .sueldo p{
     font-size: 25px;
     text-align: start;
+    margin: 30px 55px 0px;
 }
 .cuadrodesueldo p{
    font-size: 40px;
 margin-bottom: 0%;
+border: 1px solid;
+border-radius: 20px;
+padding: 18px;
+margin: auto;
+width: fit-content;  
+box-shadow: 5px 5px 2px; 
+background-color: aliceblue;
 }
 .cuadrodesueldo{
-    border: 1px solid;
-    border-radius: 20px;
-    padding: 18px;
-    margin: auto;
-width: 175px;  
-box-shadow: 5px 5px 2px;  
+    
 }
 div.cargar img{
     width: 38px;
@@ -67,4 +83,13 @@ div.cargar img{
     padding-inline: 20px;
     background-color: #ffb703;
     margin-top: 40px;
+}
+.botones button{
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+}
+#administrar{
+    display: none;
+    display: block;
 }

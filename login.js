@@ -46,8 +46,9 @@ formulario.addEventListener("submit", function (e) {
             admin: true,
             token: data.message,
           };
+        
           localStorage.setItem("token", JSON.stringify(token));
-          window.location.href = "./perfil/REDIRECCION.html";
+           window.location.href = "./perfil/REDIRECCION.html"; 
         } else {
           console.log("hasta aqui te trajo el rio");
           const token = {
@@ -55,7 +56,7 @@ formulario.addEventListener("submit", function (e) {
             token: data.message,
           };
           localStorage.setItem("token", JSON.stringify(token));
-          window.location.href = "./perfil/REDIRECCION.html";
+           window.location.href = "./perfil/perfil.html"; 
         }
       }
     })
