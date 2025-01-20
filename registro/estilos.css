@@ -3,45 +3,60 @@ html{
     min-height: 100%;
 }
 body{
-    background: linear-gradient(#219ebc, #b4def1  );
-   
-   
-      justify-content: center;
+    background:url(fondo.png),  linear-gradient(#219ebc, #b4def1  );
+    justify-content: center;
       align-items: center;
       height: 100vh; /* Ocupa toda la altura de la ventana */
       margin: 0;
-}
+     
+     }
 h1{
     text-align: center;
-    color: #ffb703;
-font-size: 50px;
-font-family: fantasy;
+    color: #ffb703 !important;
+font-size: 50px !important;
+font-family: fantasy !important;
+margin-top: 45px !important;
 }
 h2{
     text-align: center;
    color:#023047;
 }
-.contenedor{
-    width: 300px;
-      height: 200px;
-      background-color: #1a211a ;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-   
-    
+
+    div.contenedor, .contenedordos{
+        display: block;
+        
+       
+        margin: 0 30px !important; 
+        position: relative;
+    text-align: center;
   
 }
 form{
-    width: 90%;
+   border-radius: 15px ;border: #023047,solid;
+    text-align: center;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: hsla(0, 0%, 0%, 0.3);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success{
+    margin: auto;
+    display: block !important;
+
+
+}
+
+.form-control{
+   margin: auto;
 }
 .olvide{
     text-align: center;
 
 }
 div.nuevo{
-    color: white;
+    color: white ;
     text-align: center;
     font-family: inherit;
     background-color:  #42b72a;
@@ -61,14 +76,11 @@ div.elemento{
 }
 .contenedor input{
 
-    width: 60%;
+    width: 100%;
   
 }
 
-input[type="submit"]{
-    color:white;
-    background-color: #023047;
-}
+
 .contenedor.dos{
     border-radius: 10px;
     background:rgba(gray.5);
@@ -83,4 +95,10 @@ input[type="submit"]{
 .elemento.boton{
     width: 50%;
     margin: 30px auto;
+}
+.form-label{
+    color: #ffffffeb;
+}
+label{
+    color: #ffffffeb;
 }
