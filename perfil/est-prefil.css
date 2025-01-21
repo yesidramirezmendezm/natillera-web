@@ -1,44 +1,53 @@
-html{
+html {
     height: auto;
     min-height: 100%;
 }
-body{
-    background:url(/registro/fondo.png),  linear-gradient(#219ebc, #b4def1  );
+
+body {
+    background: url(/registro/fondo.png), linear-gradient(#219ebc, #b4def1);
     justify-content: center;
-      align-items: center;
-      height: 100vh; /* Ocupa toda la altura de la ventana */
-      margin: 0;
+    align-items: center;
+    height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+    margin: 0;
 
 
 }
-h1{
+
+h1 {
     color: white;
     font-family: fantasy;
-    
+
 }
-#container{
+
+#container {
     color: white;
     text-transform: capitalize;
+
 }
-div.cabecera{
+
+div.cabecera {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: 20px;
-    background-color:#023047;
+    background-color: #023047;
+    padding: 15px
 }
-div.cabecera img{
+
+div.cabecera img {
     filter: invert(1);
     width: 35px;
 }
 
-.titulomovimientos{
+.titulomovimientos {
     text-align: center;
     width: 100%;
-margin-bottom: 3px;
-margin-top: 45px
+    margin-bottom: 3px;
+    margin-top: 45px
 }
-.sueldo{
+
+.sueldo {
     display: ;
     justify-content: space-between;
     align-items: center;
@@ -47,36 +56,38 @@ margin-top: 45px
     padding-left: 10px;
 
 }
-.sueldo p{
+
+.sueldo p {
     font-size: 25px;
     text-align: start;
     margin: 30px 55px 0px;
 }
-.cuadrodesueldo p{
-   font-size: 40px;
-margin-bottom: 0%;
-border: 1px solid;
-border-radius: 20px;
-padding: 18px;
-margin: auto;
-width: fit-content;  
-box-shadow: 5px 5px 2px; 
-background-color: aliceblue;
+
+.cuadrodesueldo p {
+    font-size: 40px;
+    margin-bottom: 0%;
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 18px;
+    margin: auto;
+    width: fit-content;
+    box-shadow: 5px 5px 2px;
+    background-color: aliceblue;
 }
-.cuadrodesueldo{
-    
-}
-div.cargar img{
+
+.cuadrodesueldo {}
+
+div.cargar img {
     width: 38px;
     border: solid;
     border-radius: 50%;
     padding: 8px;
 }
-   
-    
 
 
-.cargar{
+
+
+.cargar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,12 +95,30 @@ div.cargar img{
     background-color: #ffb703;
     margin-top: 40px;
 }
-.botones button{
+
+.botones button {
     display: block;
     margin: auto;
     margin-top: 30px;
 }
-#administrar{
+
+#administrar {
     display: none;
-    display: block;
+
+}
+
+#noMovimientos {
+    display: none;
+    position: relative;
+    border-bottom: 5px;
+    border-bottom-color: black;
+    border-bottom-style: dotted;
+    justify-content: center;
+    padding-top: 20px;
+}
+#noMovimientos h3 {
+    margin: 0;
+    position: relative;
+    top: 15px;
+    background: #b4def1;
 }

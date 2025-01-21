@@ -64,19 +64,27 @@ const dateFormat = (fecha) => {
     date.getDate() + " / " + (date.getMonth() + 1) + " / " + date.getFullYear()
   );
 };
-
+var noMovimientos=document.getElementById("noMovimientos")
 const mostrardata = (data) => {
   let body = "";
-  for (let i = 0; i < data.message.length; i++) {
-    body += ` 
-     <tr>
-                <td>  ${dateFormat(data.message[i].transaction_date)}</td>
-                <td>${data.message[i].status}</td>
-                <td>${data.message[i].type}</td>
-                <td>${formatearMoneda(data.message[i].amount)}</td>
-            </tr>
-    `;
+  if (data.message.length==0){
+    console.log("cero pollito")
+    noMovimientos.style.display ='flex';
+  }else{
+    noMovimientos.style.display ='none';
+    for (let i = 0; i < data.message.length; i++) {
+    
+      body += ` 
+       <tr>
+                  <td>  ${dateFormat(data.message[i].transaction_date)}</td>
+                  <td>${data.message[i].status}</td>
+                  <td>${data.message[i].type}</td>
+                  <td>${formatearMoneda(data.message[i].amount)}</td>
+              </tr>
+      `;
+    }
   }
+  
   console.log(body);
   document.getElementById("data").innerHTML = body;
 };
