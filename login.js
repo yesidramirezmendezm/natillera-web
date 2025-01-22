@@ -32,14 +32,19 @@ formulario.addEventListener("submit", function (e) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data); // Muestra la respuesta del servidor
-      if (data.message === "User not found") {
+      console.log(data, ""); // Muestra la respuesta del servidor
+      
+      console.log(data.message,"se jodio")
+      if (data.message ==="Username not found. Please check your username.") {
+        
         msgError.textContent =
           "!Recorcholis¡ creo que ingrasaste un correo incorrecto ";
-        alert.classList.toggle("show");
+        alert.classList.add("show");
+      
       } else if (data.message === "Invalid password") {
         msgError.textContent = "tu contraseña no es correcta";
-        alert.classList.toggle("show");
+        alert.classList.add("show");
+      
       } else if (data.ok === true) {
         if (data.message.role == "admin") {
           const token = {
