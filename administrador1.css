@@ -1,3 +1,10 @@
 img{
     width: 30px;
 }
+
+.alert{
+    z-index: 10000;
+    position: fixed;
+    width: 100%;
+    bottom: 187px;
+}

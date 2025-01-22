@@ -5,19 +5,24 @@ const token = JSON.parse(localStorage.getItem("token"));
 window.handleDataModal = (id) => {
   const amount = document.querySelector(`#amount-${id}`);
   const paymentMethod = document.querySelector(`#payment-method-${id}`);
-  
+
   console.log({
     user_id: id,
     amount: parseInt(amount?.value) || "No se ingresó cantidad",
     type: paymentMethod?.value || "No se seleccionó forma de pago",
     status: "completed",
   });
-  if(amount.value===""){
-    console.log(amount.value,"reque")
-alertaON("ingrese un monto valido")
-
+  if (amount.value === "") {
+    console.log(amount.value, "reque");
+    alertaON("ingrese un monto valido");
+    return;
+  }
+  if(paymentMethod.value==""){
+    console.log("vamos bn")
+    alertaON("seleccione una forma de pago ")
     return
   }
+
   fetch("http://54.145.241.75:3000/api/v1/transactions/add", {
     method: "POST",
     headers: {
@@ -30,21 +35,18 @@ alertaON("ingrese un monto valido")
       status: "completed",
     }),
   })
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data, "OIS! ve mira!");
-    
-    
-    
-    if(data.ok===true){ 
-      window.location.reload();
-    }
-  })
-  .catch((error) => {
-    console.log("Hubo un problema con la petición Fetch: " + error);
-  });
-};
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data, "OIS! ve mira!");
 
+      if (data.ok === true) {
+        window.location.reload();
+      }
+    })
+    .catch((error) => {
+      console.log("Hubo un problema con la petición Fetch: " + error);
+    });
+};
 
 fetch("http://54.145.241.75:3000/api/v1/users/users", {
   method: "GET",
@@ -55,8 +57,6 @@ fetch("http://54.145.241.75:3000/api/v1/users/users", {
   .then((response) => response.json())
   .then((data) => mostrardata(data))
   .catch((error) => console.log(error));
-
-
 
 const mostrardata = (data) => {
   let body = "";
@@ -98,6 +98,8 @@ const mostrardata = (data) => {
                   <button type="submit" class="btn btn-primary" onclick="handleDataModal(${data.data[i].uid})">Enviar</button>
                 </div>
               </form>
+                
+
             </div>
           </div>
         </div>
