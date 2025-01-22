@@ -11,7 +11,7 @@ function formatearMoneda(valor) {
   }).format(valor);
 }
 
-fetch("http://54.227.80.41:3000/api/v1/users/profile", {
+fetch("http://54.145.241.75:3000/api/v1/users/profile", {
   method: "GET",
   headers: {
     Authorization: `Bearer ${token.token}`,
@@ -40,7 +40,7 @@ fetch("http://54.227.80.41:3000/api/v1/users/profile", {
     console.log("Hubo un problema con la petición Fetch: " + error);
   });
 
-fetch("http://54.227.80.41:3000/api/v1/transactions/get", {
+fetch("http://54.145.241.75:3000/api/v1/transactions/get", {
   method: "GET",
   headers: {
     Authorization: `Bearer ${token.token}`,

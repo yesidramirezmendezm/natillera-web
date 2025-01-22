@@ -12,7 +12,7 @@ const handleDataModal = (id) => {
     status: "completed",
   });
 
-  fetch("http://54.227.80.41:3000/api/v1/transactions/add", {
+  fetch("http://54.145.241.75:3000/api/v1/transactions/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const handleDataModal = (id) => {
     });
 };
 
-fetch("http://54.227.80.41:3000/api/v1/users/users", {
+fetch("http://54.145.241.75:3000/api/v1/users/users", {
   method: "GET",
   headers: {
     Authorization: `Bearer ${token.token}`,

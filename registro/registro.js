@@ -34,7 +34,7 @@ formulario.addEventListener("submit", function (e) {
 
   if (password == passwordConfirm) {
     console.log("contraseña valida");
-    fetch("http://54.227.80.41:3000/api/v1/users/register", {
+    fetch("http://54.145.241.75:3000/api/v1/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

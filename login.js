@@ -20,7 +20,7 @@ formulario.addEventListener("submit", function (e) {
   console.log(datos.get("password")); // Debe imprimir el valor del campo 'password'
   var usuario = datos.get("usuario");
 
-  fetch("http://54.227.80.41:3000/api/v1/users/login", {
+  fetch("http://54.145.241.75:3000/api/v1/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
