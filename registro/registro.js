@@ -1,9 +1,11 @@
+
+
+
 var formulario = document.getElementById("formaNueva");
 const container = document.getElementById("container");
 var texpassword = document.getElementById("password");
 const alert = document.getElementById("alert");
 var email =document.getElementById("email")
-
 
 email.addEventListener("focus", function (e) {
   container.classList.remove("show");
@@ -55,9 +57,15 @@ formulario.addEventListener("submit", function (e) {
         if (data.message === "Email already exists") {
           container.textContent = "El email ya existe";
           container.classList.add("show");
+          return
+        }
+        if (data.message === 'Internal server error'){
+          container.textContent = " Chanfle!  ese nombre de usuario ya existe  pero puedes intentar con otro";
+          container.classList.add("show");
           return;
         }
-        if ((data.ok = true)) {
+           
+        if ((data.ok === true)) {
           const token = {
             admin: false,
             token: data.message,

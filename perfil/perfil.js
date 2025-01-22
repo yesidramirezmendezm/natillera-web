@@ -11,6 +11,7 @@ function formatearMoneda(valor) {
   }).format(valor);
 }
 
+
 fetch("http://54.145.241.75:3000/api/v1/users/profile", {
   method: "GET",
   headers: {

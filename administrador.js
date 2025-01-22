@@ -1,17 +1,23 @@
-const token = JSON.parse(localStorage.getItem("token"));
-console.log(token);
+import { alertaON } from "./utills/funtions.js";
 
-const handleDataModal = (id) => {
+const token = JSON.parse(localStorage.getItem("token"));
+
+window.handleDataModal = (id) => {
   const amount = document.querySelector(`#amount-${id}`);
   const paymentMethod = document.querySelector(`#payment-method-${id}`);
-
+  
   console.log({
     user_id: id,
     amount: parseInt(amount?.value) || "No se ingresó cantidad",
     type: paymentMethod?.value || "No se seleccionó forma de pago",
     status: "completed",
   });
+  if(amount.value===""){
+    console.log(amount.value,"reque")
+alertaON("ingrese un monto valido")
 
+    return
+  }
   fetch("http://54.145.241.75:3000/api/v1/transactions/add", {
     method: "POST",
     headers: {
@@ -24,17 +30,21 @@ const handleDataModal = (id) => {
       status: "completed",
     }),
   })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data, "OIS! ve mira!");
-      if(data.ok===true){ 
-        window.location.reload();
-      }
-    })
-    .catch((error) => {
-      console.log("Hubo un problema con la petición Fetch: " + error);
-    });
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data, "OIS! ve mira!");
+    
+    
+    
+    if(data.ok===true){ 
+      window.location.reload();
+    }
+  })
+  .catch((error) => {
+    console.log("Hubo un problema con la petición Fetch: " + error);
+  });
 };
+
 
 fetch("http://54.145.241.75:3000/api/v1/users/users", {
   method: "GET",

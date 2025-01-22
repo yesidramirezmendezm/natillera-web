@@ -2,8 +2,26 @@ let msgError = document.querySelector("#alert p");
 var formulario = document.getElementById("forma");
 const alert = document.getElementById("alert");
 const x = document.getElementById("x");
-
+var username=document.getElementById("usuario")
+var contraseña =document.getElementById("password")
 console.log(msgError);
+
+
+
+password.addEventListener("focus",function (e){
+  alert.classList.remove("show")
+})
+
+username.addEventListener("focus", function (e){
+  alert.classList.remove ("show")
+})
+
+
+function desaparecer(){
+  setTimeout(() => {
+    alert.classList.remove('show');
+  }, 7000);
+}
 
 x.addEventListener("click", function (e) {
   console.log(x);
@@ -19,6 +37,8 @@ formulario.addEventListener("submit", function (e) {
   console.log(datos.get("usuario")); // Debe imprimir el valor del campo 'usuario'
   console.log(datos.get("password")); // Debe imprimir el valor del campo 'password'
   var usuario = datos.get("usuario");
+
+
 
   fetch("http://54.145.241.75:3000/api/v1/users/login", {
     method: "POST",
@@ -40,10 +60,13 @@ formulario.addEventListener("submit", function (e) {
         msgError.textContent =
           "!Recorcholis¡ creo que ingrasaste un correo incorrecto ";
         alert.classList.add("show");
+        desaparecer()
+        
       
       } else if (data.message === "Invalid password") {
         msgError.textContent = "tu contraseña no es correcta";
         alert.classList.add("show");
+       desaparecer()
       
       } else if (data.ok === true) {
         if (data.message.role == "admin") {
