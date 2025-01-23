@@ -5,7 +5,7 @@ var administrar =document.getElementById("administrar")
 
 
 
-fetch("http://54.145.241.75:3000/api/v1/users/profile", {
+fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/profile", {
   method: "GET",
   headers: {
     Authorization: `Bearer ${token.token}`,

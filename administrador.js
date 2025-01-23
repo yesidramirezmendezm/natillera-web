@@ -23,7 +23,7 @@ window.handleDataModal = (id) => {
     return
   }
 
-  fetch("http://54.145.241.75:3000/api/v1/transactions/add", {
+  fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +48,7 @@ window.handleDataModal = (id) => {
     });
 };
 
-fetch("http://54.145.241.75:3000/api/v1/users/users", {
+fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/users", {
   method: "GET",
   headers: {
     Authorization: `Bearer ${token.token}`,
