@@ -3,8 +3,38 @@ img{
 }
 
 .alert{
-    z-index: 10000;
+    z-index: -1;
     position: fixed;
     width: 100%;
     bottom: 187px;
 }
+div.alert.show{
+    z-index: 10000;
+}
+
+
+
+h1 {
+    color: white;
+    font-family: fantasy;
+
+}
+
+#container {
+    color: white;
+    text-transform: capitalize;
+
+}
+
+div.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 20px;
+    background-color: #023047;
+    padding: 15px
+}
+
+div.cabecera img {
+    filter: invert(1);
+    width: 35px;}

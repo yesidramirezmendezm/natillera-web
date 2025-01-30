@@ -1,6 +1,32 @@
 import { alertaON } from "./utills/funtions.js";
-
+var container = document.getElementById("container");
 const token = JSON.parse(localStorage.getItem("token"));
+
+window.formatearMoneda = function (input) {
+  
+  let valor = input.value.replace(/\D/g, '');
+
+  
+  let numeroFormateado = new Intl.NumberFormat('es-ES').format(valor);
+
+  
+  input.value = numeroFormateado;
+}
+
+fetch("http://54.145.241.75:3000/api/v1/users/profile", {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${token.token}`,
+  },
+})
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data, "ENTRO");
+    if (data.ok === true) {
+      let fullName = data.message.name + " " + data.message.last_name;
+      container.textContent = fullName;
+    }
+  })
 
 window.handleDataModal = (id) => {
   const amount = document.querySelector(`#amount-${id}`);
@@ -83,7 +109,7 @@ const mostrardata = (data) => {
               <form id="formModal-${data.data[i].uid}">
                 <div class="mb-3">
                   <label for="amount-${i}" class="col-form-label">Depositar abono:</label>
-                  <input type="number" class="form-control" id="amount-${data.data[i].uid}" name="amount" placeholder="Cantidad" required>
+                  <input type="text" class="form-control" id="amount-${data.data[i].uid}" name="amount" placeholder="Cantidad" required oninput="formatearMoneda(this)">
                 </div>
                 <div class="form-floating">
                   <select class="form-select" id="payment-method-${data.data[i].uid}" name="payment_method">

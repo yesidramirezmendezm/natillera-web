@@ -34,7 +34,7 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/profile", {
     
       administrar.style.display = 'none'; // Ocultar el botón o enlace de administración.
       console.log('Rol no reconocido. El botón no cambiará.');}
-
+      
    
   })
   .catch((error) => {
@@ -50,6 +50,8 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/get", {
   .then((response) => response.json())
   .then((data) => {
     console.log(data);
+    if (data.message==='invaled token')
+      window.location
     mostrardata(data);
    
 

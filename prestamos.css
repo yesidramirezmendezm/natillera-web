@@ -1,0 +1,105 @@
+html{
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-width: 100%;
+}
+body{
+    background:url(/registro/fondo.png),  linear-gradient(#219ebc, #b4def1  );
+    justify-content: center;
+      align-items: center;
+      height: 100%; /* Ocupa toda la altura de la ventana */
+      margin: 0;
+     
+     }
+
+    
+  
+h1{
+    text-align: center;
+    font-family: 'arial';
+}
+label{
+    font-family: 'arial';
+    font-weight: bold;
+}
+.form{
+    width: 550px;
+    margin: 0 auto;
+    margin-top: 80px;
+    border:  2px;
+}
+input{
+    width: 200px;
+    margin-bottom: 10px;
+    padding: 8px;
+    margin-right: -6px;
+    background-color: #fdfef7;
+    border: #173441 1.8px solid;
+}
+fieldset{
+    border-radius: 15px ;border: #023047,solid;
+    text-align: center;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: hsla(0, 0%, 0%, 0.3);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);}
+button{
+    background-color: #fdfef7;
+    border: #173441 1.8px solid;
+    width: 100px;
+    font-family: 'arial';
+    font-size: 15px;  
+    border-radius: 2px;
+    padding: 10px;
+    margin-left:77%;
+}
+i{
+    background-color: #fdfef7;
+    color: rgb(156, 155, 155);
+    border: #173441 1px solid;
+    padding: 6.8px 8px 9.8px 8px;
+    border-left: white;
+    margin-bottom: 10px;
+}
+.tab{
+    border-collapse: collapse;
+    text-align: center;
+    font-family: 'arial';
+    background-color: #fdfef7;
+    border: #173441 2px solid;
+    margin: 0 auto;
+    width: 500px;
+}
+thead{
+    border: #173441 2px solid;
+    font-weight: bold;
+}
+tr{
+    border: #173441 2px solid;
+}
+td{
+    border: #173441 2px solid;    
+}
+.alert{
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    bottom: 187px;
+}
+div.alert.show{
+    z-index: 10000;
+}
+.texto {
+    align-content: center;
+    text-align: center;
+    color: #04295d;
+}
+.botonEnviar{
+    display: flex;
+  justify-content: center;  /* Centra horizontalmente */
+  align-items: center;      /* Centra verticalmente */
+ width: 100%;
+}

@@ -44,7 +44,7 @@ div.cabecera img {
     text-align: center;
     width: 100%;
     margin-bottom: 3px;
-    margin-top: 45px
+    margin-top: 10px
 }
 
 .sueldo {
@@ -87,13 +87,32 @@ div.cargar img {
 
 
 
-.cargar {
+.cargar{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-inline: 20px;
-    background-color: #ffb703;
+    padding-inline: ;
+   
     margin-top: 40px;
+}
+
+.cargar div {
+    background-color: #ffb703;
+    border-radius: 10px;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.cargar div h3{
+    font-size: 15px;
+    padding: 5px;
+
+}
+
+.cargar div img{
+    margin: 10px;
+    left: 50%;
+    justify-content: center;
 }
 
 .botones button {
