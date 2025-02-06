@@ -40,6 +40,7 @@ h2 {
 
 div.contenedor {
     width: 100%;
+    padding-inline: 20px;
 }
 
 div.contenedor,
@@ -65,8 +66,6 @@ form {
 .btn-success {
     margin: auto;
     display: block !important;
-
-
 }
 
 .form-control {
