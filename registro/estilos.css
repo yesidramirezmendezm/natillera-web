@@ -5,22 +5,12 @@ html {
 
 body {
     background: url(fondo.png), linear-gradient(#219ebc, #b4def1);
-    justify-content: center;
-      align-items: center;
-      height: 100vh; /* Ocupa toda la altura de la ventana */
-      margin: 0;
-     
-     }
-h1{
-    text-align: center;
-    color: #ffb703 !important;
-font-size: 50px !important;
-font-family: fantasy !important;
-
-}
-h2{
-    text-align: center;
-   color:#023047;
+    height: 100vh;
+    /* Ocupa toda la altura de la ventana */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -28,7 +18,7 @@ h1 {
     color: #ffb703 !important;
     font-size: 50px !important;
     font-family: fantasy !important;
-    margin-top: 45px !important;
+
 }
 
 h2 {
@@ -36,11 +26,25 @@ h2 {
     color: #023047;
 }
 
+h1 {
+    text-align: center;
+    color: #ffb703 !important;
+    font-size: 50px !important;
+    font-family: fantasy !important;
+}
+
+h2 {
+    text-align: center;
+    color: #023047;
+}
+
+div.contenedor {
+    width: 100%;
+}
+
 div.contenedor,
 .contenedordos {
     display: block;
-
-
     margin: 0 30px !important;
     position: relative;
     text-align: center;
@@ -90,7 +94,6 @@ div.nuevo {
 
 div.elemento {
     color: #023047;
-    font-family: ;
     margin-top: 15px;
 
 }
@@ -127,8 +130,9 @@ div.elemento {
 label {
     color: #ffffffeb;
 }
-.juncha{
+
+.juncha {
     width: 100px;
     display: block;
-    margin: 18px   auto 0;
+    margin: 20px auto 15px;
 }
