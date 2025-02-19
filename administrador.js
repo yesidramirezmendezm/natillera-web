@@ -2,12 +2,23 @@ import { alertaON } from "./utills/funtions.js";
 var container = document.getElementById("container");
 const token = JSON.parse(localStorage.getItem("token"));
 
+
 window.formatearMoneda = function (input) {
-  let valor = input.value.replace(/\D/g, "");
+  
+  let valor = input.value.replace(/[^0-9,.]/g, '');
 
-  let numeroFormateado = new Intl.NumberFormat("es-ES").format(valor);
+  
+  valor = valor.replace(/,/g, '.');
 
-  input.value = numeroFormateado;
+  
+  let numero = parseFloat(valor);
+
+  
+  if (!isNaN(numero)) {
+    input.value = new Intl.NumberFormat('es-ES').format(numero);
+  } else {
+    input.value = '';
+  }
 };
 
 fetch("http://54.145.241.75:3000/api/v1/users/profile", {
@@ -29,20 +40,25 @@ window.handleDataModal = (id) => {
   const amount = document.querySelector(`#amount-${id}`);
   const paymentMethod = document.querySelector(`#payment-method-${id}`);
 
+  
+  const amountValue = amount.value.replace(/\./g, '').replace(',', '.');
+  const amountNumber = parseFloat(amountValue);
+
   console.log({
     user_id: id,
-    amount: parseInt(amount?.value) || "No se ingresó cantidad",
+    amount: amountNumber || "No se ingresó cantidad",
     type: paymentMethod?.value || "No se seleccionó forma de pago",
     status: "completed",
   });
-  if (amount.value === "") {
+
+  if (amount.value === "" || isNaN(amountNumber) || amountNumber <= 0) {
     console.log(amount.value, "reque");
-    alertaON("ingrese un monto valido");
+    alertaON("Ingrese un monto válido");
     return;
   }
-  if (paymentMethod.value == "") {
-    console.log("vamos bn");
-    alertaON("seleccione una forma de pago ");
+  if (paymentMethod.value === "") {
+    console.log("Forma de pago no seleccionada");
+    alertaON("Seleccione una forma de pago");
     return;
   }
 
@@ -53,14 +69,14 @@ window.handleDataModal = (id) => {
     },
     body: JSON.stringify({
       user_id: id,
-      amount: parseInt(amount?.value),
+      amount: amountNumber,
       type: paymentMethod?.value,
       status: "completed",
     }),
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data, "OIS! ve mira!");
+      console.log(data, "Respuesta de la API");
 
       if (data.ok === true) {
         window.location.reload();
@@ -163,3 +179,4 @@ const mostrardata = (data) => {
   }
   document.getElementById("data").innerHTML = body;
 };
+
