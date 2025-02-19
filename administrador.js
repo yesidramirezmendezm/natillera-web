@@ -2,16 +2,24 @@ import { alertaON } from "./utills/funtions.js";
 var container = document.getElementById("container");
 const token = JSON.parse(localStorage.getItem("token"));
 
+
 window.formatearMoneda = function (input) {
   
-  let valor = input.value.replace(/\D/g, '');
+  let valor = input.value.replace(/[^0-9,.]/g, '');
 
   
-  let numeroFormateado = new Intl.NumberFormat('es-ES').format(valor);
+  valor = valor.replace(/,/g, '.');
 
   
-  input.value = numeroFormateado;
-}
+  let numero = parseFloat(valor);
+
+  
+  if (!isNaN(numero)) {
+    input.value = new Intl.NumberFormat('es-ES').format(numero);
+  } else {
+    input.value = '';
+  }
+};
 
 fetch("http://54.145.241.75:3000/api/v1/users/profile", {
   method: "GET",
@@ -26,27 +34,32 @@ fetch("http://54.145.241.75:3000/api/v1/users/profile", {
       let fullName = data.message.name + " " + data.message.last_name;
       container.textContent = fullName;
     }
-  })
+  });
 
 window.handleDataModal = (id) => {
   const amount = document.querySelector(`#amount-${id}`);
   const paymentMethod = document.querySelector(`#payment-method-${id}`);
 
+  
+  const amountValue = amount.value.replace(/\./g, '').replace(',', '.');
+  const amountNumber = parseFloat(amountValue);
+
   console.log({
     user_id: id,
-    amount: parseInt(amount?.value) || "No se ingresó cantidad",
+    amount: amountNumber || "No se ingresó cantidad",
     type: paymentMethod?.value || "No se seleccionó forma de pago",
     status: "completed",
   });
-  if (amount.value === "") {
+
+  if (amount.value === "" || isNaN(amountNumber) || amountNumber <= 0) {
     console.log(amount.value, "reque");
-    alertaON("ingrese un monto valido");
+    alertaON("Ingrese un monto válido");
     return;
   }
-  if(paymentMethod.value==""){
-    console.log("vamos bn")
-    alertaON("seleccione una forma de pago ")
-    return
+  if (paymentMethod.value === "") {
+    console.log("Forma de pago no seleccionada");
+    alertaON("Seleccione una forma de pago");
+    return;
   }
 
   fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/add", {
@@ -56,14 +69,14 @@ window.handleDataModal = (id) => {
     },
     body: JSON.stringify({
       user_id: id,
-      amount: parseInt(amount?.value),
+      amount: amountNumber,
       type: paymentMethod?.value,
       status: "completed",
     }),
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data, "OIS! ve mira!");
+      console.log(data, "Respuesta de la API");
 
       if (data.ok === true) {
         window.location.reload();
@@ -91,7 +104,7 @@ const mostrardata = (data) => {
       <tr>
         <td>${data.data[i].uid}</td>
         <td>${data.data[i].name} ${data.data[i].last_name}</td>
-        <td>${data.data[i].balance}</td>
+       <td>${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(data.data[i].balance)}</td>
         <td>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-${i}">
             <img src="/perfil/hucha.png" alt="Hucha">
@@ -121,11 +134,9 @@ const mostrardata = (data) => {
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button type="submit" class="btn btn-primary" onclick="handleDataModal(${data.data[i].uid})">Enviar</button>
+                  <button type="button" class="btn btn-primary" onclick="handleDataModal(${data.data[i].uid})">Enviar</button>
                 </div>
               </form>
-                
-
             </div>
           </div>
         </div>
@@ -133,3 +144,4 @@ const mostrardata = (data) => {
   }
   document.getElementById("data").innerHTML = body;
 };
+
