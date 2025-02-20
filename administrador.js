@@ -3,6 +3,15 @@ var container = document.getElementById("container");
 const token = JSON.parse(localStorage.getItem("token"));
 
 
+window.redirigirWhatsApp = function (phone_number) {
+  if (!phone_number || isNaN(phone_number)) {
+    console.error("Número de teléfono inválido:", phone_number);
+    alert("Número de teléfono no válido para WhatsApp.");
+    return;
+  }
+  window.location.href = `https://wa.me/${phone_number}`;
+};
+
 window.formatearMoneda = function (input) {
   
   let valor = input.value.replace(/[^0-9,.]/g, '');
@@ -100,11 +109,15 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/users", {
 const mostrardata = (data) => {
   let body = "";
   console.log(data);
+ 
+  
+
   for (let i = 0; i < data.data.length; i++) {
     body += `
       <tr>
         <td>${data.data[i].uid}</td>
         <td>${data.data[i].name} ${data.data[i].last_name}</td>
+       <td>${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(data.data[i].balance)}</td>
         <td>
 <button type="button" class= "ojo" data-bs-toggle="modal" data-bs-target="#exampleModal${i}">
   <img src="/watch-dark-eye_icon-icons.com_53840.png" alt="ojo">
@@ -116,17 +129,21 @@ const mostrardata = (data) => {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel${i}">info</h1>Informacion del usuario
+        <h1 class="modal-title fs-5" id="exampleModalLabel${i}">info</h1><b>Informacion del usuario</b>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Nombre:${data.data[i].name}
-        Apellido:${data.data[i].last_name}
+        <b>Nombre:</b>${data.data[i].name}<br>
+        <b>Apellido:</b>${data.data[i].last_name}<br>
+          <b>telefono:</b>${data.data[i].phone_number}<br>
+        <b>email:</b>${data.data[i].email}
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" onclick="redirigirWhatsApp('${data.data[i].phone_number}')">WhatsApp</button>
+
+
       </div>
     </div>
   </div>
@@ -134,7 +151,7 @@ const mostrardata = (data) => {
 
 
 
- <td>${data.data[i].balance}</td>
+
 
 
 
