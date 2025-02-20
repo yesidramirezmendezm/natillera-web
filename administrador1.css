@@ -38,3 +38,7 @@ div.cabecera {
 div.cabecera img {
     filter: invert(1);
     width: 35px;}
+    
+    .ojo{
+        border: none;
+    }
