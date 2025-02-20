@@ -108,7 +108,7 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/users", {
 
 const mostrardata = (data) => {
   let body = "";
-  console.log(data);
+  
  
   
 
