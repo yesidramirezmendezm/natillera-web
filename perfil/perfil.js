@@ -1,5 +1,5 @@
 const token = JSON.parse(localStorage.getItem("token"));
-console.log(token);
+
 
 var container = document.getElementById("container");
 var Saldo = document.getElementById("saldo");
@@ -20,20 +20,20 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/profile", {
 })
   .then((res) => res.json())
   .then((data) => {
-    console.log(data, "ENTRO");
+    
     if (data.ok === true) {
       let fullName = data.message.name + " " + data.message.last_name;
       container.textContent = fullName;
       Saldo.textContent = formatearMoneda(data.message.balance);
     } if (data.message.role ==='admin') {
-      console.log(data.message.role)
-      administrar.style.display = 'block'; // Mostrar el botón
-    console.log("patron")
+      
+      administrar.style.display = 'block'; 
+    
     
     } else  {
     
-      administrar.style.display = 'none'; // Ocultar el botón o enlace de administración.
-      console.log('Rol no reconocido. El botón no cambiará.');}
+      administrar.style.display = 'none'; 
+      }
       
    
   })
@@ -49,7 +49,7 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/get", {
 })
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
+    
     if (data.message==='invaled token')
       window.location
     mostrardata(data);
@@ -61,8 +61,7 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/get", {
 
 const dateFormat = (fecha) => {
   const date = new Date(fecha);
-  console.log(date.getTime(), "formato de fecha");
-
+  
   return (
     date.getDate() + " / " + (date.getMonth() + 1) + " / " + date.getFullYear()
   );
@@ -71,7 +70,7 @@ var noMovimientos=document.getElementById("noMovimientos")
 const mostrardata = (data) => {
   let body = "";
   if (data.message.length==0){
-    console.log("cero pollito")
+   
     noMovimientos.style.display ='flex';
   }else{
     noMovimientos.style.display ='none';
@@ -88,6 +87,6 @@ const mostrardata = (data) => {
     }
   }
   
-  console.log(body);
+  
   document.getElementById("data").innerHTML = body;
 };

@@ -4,7 +4,7 @@ const alert = document.getElementById("alert");
 const x = document.getElementById("x");
 var username=document.getElementById("usuario")
 var contraseña =document.getElementById("password")
-console.log(msgError);
+
 
 
 
@@ -24,18 +24,17 @@ function desaparecer(){
 }
 
 x.addEventListener("click", function (e) {
-  console.log(x);
+  
   alert.classList.toggle("show");
 });
-console.log(alert);
+
 
 formulario.addEventListener("submit", function (e) {
   e.preventDefault();
   var datos = new FormData(formulario);
 
-  // Verifica los valores del formulario en consola
-  console.log(datos.get("usuario")); // Debe imprimir el valor del campo 'usuario'
-  console.log(datos.get("password")); // Debe imprimir el valor del campo 'password'
+ 
+  
   var usuario = datos.get("usuario");
 
 
@@ -46,15 +45,15 @@ formulario.addEventListener("submit", function (e) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      field_login: datos.get("usuario"), // Cambia a 'usuario' si el valor está en este campo
+      field_login: datos.get("usuario"), 
       password: datos.get("password"),
     }),
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data, ""); // Muestra la respuesta del servidor
+     
       
-      console.log(data.message,"se jodio")
+      
       if (data.message ==="Username not found. Please check your username.") {
         
         msgError.textContent =
@@ -78,7 +77,7 @@ formulario.addEventListener("submit", function (e) {
           localStorage.setItem("token", JSON.stringify(token));
            window.location.href = "./perfil/REDIRECCION.html"; 
         } else {
-          console.log("hasta aqui te trajo el rio");
+          
           const token = {
             admin: false,
             token: data.message,

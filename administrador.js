@@ -13,15 +13,14 @@ window.redirigirWhatsApp = function (phone_number) {
 };
 
 window.formatearMoneda = function (input) {
-  
-  let valor = input.value.replace(/[^0-9,.]/g, '');
+  let valor = input.value.replace(/\D/g, ''); 
 
   
-  valor = valor.replace(/,/g, '.');
+  if (valor.length > 10) {
+    valor = valor.substring(0, 10);
+  }
 
-  
   let numero = parseFloat(valor);
-
   
   if (!isNaN(numero)) {
     input.value = new Intl.NumberFormat('es-ES').format(numero);
@@ -38,7 +37,7 @@ fetch("http://54.145.241.75:3000/api/v1/users/profile", {
 })
   .then((res) => res.json())
   .then((data) => {
-    console.log(data, "ENTRO");
+   
     if (data.ok === true) {
       let fullName = data.message.name + " " + data.message.last_name;
       container.textContent = fullName;
@@ -53,20 +52,16 @@ window.handleDataModal = (id) => {
   const amountValue = amount.value.replace(/\./g, '').replace(',', '.');
   const amountNumber = parseFloat(amountValue);
 
-  console.log({
-    user_id: id,
-    amount: amountNumber || "No se ingresó cantidad",
-    type: paymentMethod?.value || "No se seleccionó forma de pago",
-    status: "completed",
-  });
+ 
+  
 
   if (amount.value === "" || isNaN(amountNumber) || amountNumber <= 0) {
-    console.log(amount.value, "reque");
+    
     alertaON("Ingrese un monto válido");
     return;
   }
   if (paymentMethod.value === "") {
-    console.log("Forma de pago no seleccionada");
+    
     alertaON("Seleccione una forma de pago");
     return;
   }
@@ -85,7 +80,7 @@ window.handleDataModal = (id) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data, "Respuesta de la API");
+      
 
       if (data.ok === true) {
         window.location.reload();
@@ -110,12 +105,12 @@ const mostrardata = (data) => {
   let body = "";
   
  
-  
+  data.data.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
 
   for (let i = 0; i < data.data.length; i++) {
     body += `
       <tr>
-        <td>${data.data[i].uid}</td>
+        <td>${i + 1}
         <td>${data.data[i].name} ${data.data[i].last_name}</td>
        <td>${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(data.data[i].balance)}</td>
         <td>
@@ -171,7 +166,7 @@ const mostrardata = (data) => {
        <form id="formModal-${data.data[i].uid}">
        <div class="mb-3">
        <label for="amount-${i}" class="col-form-label">Depositar abono:</label>
-       <input type="text" class="form-control" id="amount-${data.data[i].uid}" name="amount" placeholder="Cantidad" required oninput="formatearMoneda(this)">
+       <input type="text" class="form-control" id="amount-${data.data[i].uid}" name="amount" placeholder="Cantidad" required oninput="formatearMoneda(this)" maxlength="10" >
        </div>
        <div class="form-floating">
        <select class="form-select" id="payment-method-${data.data[i].uid}" name="payment_method">
