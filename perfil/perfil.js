@@ -50,8 +50,8 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/get", {
   .then((response) => response.json())
   .then((data) => {
     
-    if (data.message==='invaled token')
-      window.location
+    if (data.message==='Invaled token')
+      window.location.href = "../index.html"; 
     mostrardata(data);
    
 
