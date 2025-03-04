@@ -104,7 +104,7 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/users", {
 const mostrardata = (data) => {
   let body = "";
   
- 
+ console.log(data)
   data.data.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
 
   for (let i = 0; i < data.data.length; i++) {
@@ -114,6 +114,9 @@ const mostrardata = (data) => {
         <td>${data.data[i].name} ${data.data[i].last_name}</td>
        <td>${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(data.data[i].balance)}</td>
         <td>
+        <a href="./administrador/userInformation.html?userName=${encodeURIComponent(data.data[i].name)}&lastName=${encodeURIComponent(data.data[i].last_name)}&phone=${encodeURIComponent(data.data[i].phone_number)}&email=${encodeURIComponent(data.data[i].email)}&userId=${encodeURIComponent(data.data[i].uid)}">
+        <img src="/watch-dark-eye_icon-icons.com_53840.png" alt="ojo">
+        </a>
 <button type="button" class= "ojo" data-bs-toggle="modal" data-bs-target="#exampleModal${i}">
   <img src="/watch-dark-eye_icon-icons.com_53840.png" alt="ojo">
 </button>
