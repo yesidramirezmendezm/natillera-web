@@ -3,14 +3,7 @@ var container = document.getElementById("container");
 const token = JSON.parse(localStorage.getItem("token"));
 
 
-window.redirigirWhatsApp = function (phone_number) {
-  if (!phone_number || isNaN(phone_number)) {
-    console.error("Número de teléfono inválido:", phone_number);
-    alert("Número de teléfono no válido para WhatsApp.");
-    return;
-  }
-  window.location.href = `https://wa.me/${phone_number}`;
-};
+
 
 window.formatearMoneda = function (input) {
   let valor = input.value.replace(/\D/g, ''); 
@@ -44,53 +37,57 @@ fetch("http://54.145.241.75:3000/api/v1/users/profile", {
     }
   });
 
-window.handleDataModal = (id) => {
-  const amount = document.querySelector(`#amount-${id}`);
-  const paymentMethod = document.querySelector(`#payment-method-${id}`);
-
+  window.handleDataModal = (id) => {
+    const amount = document.querySelector(`#amount-${id}`);
+    const paymentMethod = document.querySelector(`#payment-method-${id}`);
+    const description = document.querySelector(`#floatingTextarea2-${id}`);
   
-  const amountValue = amount.value.replace(/\./g, '').replace(',', '.');
-  const amountNumber = parseFloat(amountValue);
-
- 
+    const amountValue = amount.value.replace(/\./g, '').replace(',', '.');
+    const amountNumber = parseFloat(amountValue);
   
+    if (!amount.value || isNaN(amountNumber) || amountNumber <= 0) {
+      alertaON("Ingrese un monto válido");
+      return;
+    }
+    if (!paymentMethod.value) {
+      alertaON("Seleccione una forma de pago");
+      return;
+    }
 
-  if (amount.value === "" || isNaN(amountNumber) || amountNumber <= 0) {
-    
-    alertaON("Ingrese un monto válido");
-    return;
-  }
-  if (paymentMethod.value === "") {
-    
-    alertaON("Seleccione una forma de pago");
-    return;
-  }
-
-  fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user_id: id,
-      amount: amountNumber,
-      type: paymentMethod?.value,
-      status: "completed",
-    }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      
-
-      if (data.ok === true) {
-        window.location.reload();
-      }
+    if (!paymentMethod.value) {
+      alertaON("Seleccione una forma de pago");
+      return;
+    }if (!description.value) {
+      alertaON("haga una breve descripcion de la transaccion");
+      return;
+    }
+  
+    fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/add", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: id,
+        amount: amountNumber,
+        type: paymentMethod.value,
+        status: "completed",
+        description: description.value, 
+      }),
     })
-    .catch((error) => {
-      console.log("Hubo un problema con la petición Fetch: " + error);
-    });
-};
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.ok === true) {
+          window.location.reload();
+        }
+      })
 
+      .catch((error) => {
+        console.log("Hubo un problema con la petición Fetch: " + error);
+      });
+  };
 fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/users", {
   method: "GET",
   headers: {
@@ -98,13 +95,24 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/users/users", {
   },
 })
   .then((response) => response.json())
-  .then((data) => mostrardata(data))
-  .catch((error) => console.log(error));
+  .then((data) =>{
 
+    if (data.message==='Invalid token')
+      window.location.href = "../index.html"; 
+    mostrardata(data);
+
+     mostrardata(data)
+    
+    
+    }
+    )
+  .catch((error) => console.log(error));
+  
 const mostrardata = (data) => {
   let body = "";
   
  
+ console.log(data)
   data.data.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
 
   for (let i = 0; i < data.data.length; i++) {
@@ -112,83 +120,64 @@ const mostrardata = (data) => {
       <tr>
         <td>${i + 1}
         <td>${data.data[i].name} ${data.data[i].last_name}</td>
-       <td>${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(data.data[i].balance)}</td>
+        <td>${new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(data.data[i].balance)}</td>
         <td>
-<button type="button" class= "ojo" data-bs-toggle="modal" data-bs-target="#exampleModal${i}">
-  <img src="/watch-dark-eye_icon-icons.com_53840.png" alt="ojo">
-</button>
+          <a
+            href="./administrador/userInformation.html?userName=${encodeURIComponent(data.data[i].name)}&lastName=${encodeURIComponent(data.data[i].last_name)}&phone=${encodeURIComponent(data.data[i].phone_number)}&email=${encodeURIComponent(data.data[i].email)}&userId=${encodeURIComponent(data.data[i].uid)}">
+            <img src="/watch-dark-eye_icon-icons.com_53840.png" alt="ojo">
+          </a>
 
- </td>
+        </td>
 
- <div class="modal fade" id="exampleModal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel${i}">info</h1><b>Informacion del usuario</b>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <b>Nombre:</b>${data.data[i].name}<br>
-        <b>Apellido:</b>${data.data[i].last_name}<br>
-          <b>telefono:</b>${data.data[i].phone_number}<br>
-        <b>email:</b>${data.data[i].email}
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="redirigirWhatsApp('${data.data[i].phone_number}')">WhatsApp</button>
+        <td>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-${i}">
+            <img src="/perfil/hucha.png" alt="Hucha">
+          </button>
+        </td>
 
 
-      </div>
-    </div>
-  </div>
-</div>
+        <div class="modal fade" id="modal-${i}" tabindex="-1" aria-labelledby="exampleModalLabel-${i}" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel-${i}">${data.data[i].name}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="formModal-${data.data[i].uid}">
+                  <div class="mb-3">
+                    <label for="amount-${i}" class="col-form-label">Depositar abono:</label>
+                    <input type="text" class="form-control" id="amount-${data.data[i].uid}" name="amount"
+                      placeholder="Cantidad" required oninput="formatearMoneda(this)" maxlength="10">
+                  </div>
+                  <div class="form-floating mb-3">
+                    <select class="form-select" id="payment-method-${data.data[i].uid}" name="payment_method">
+                      <option selected value="">Forma de pago</option>
+                      <option value="cash">Efectivo</option>
+                      <option value="transfer">Transferencia</option>
+                    </select>
+                    <label for="payment-method-${i}">Forma de pago</label>
+                  </div>
+
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a comment here" 
+                      id="floatingTextarea2-${data.data[i].uid}" style="height: 100px" required ></textarea>
+                    <label for="floatingTextarea2">Comments</label>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary"
+                      onclick="handleDataModal(${data.data[i].uid})">Enviar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        </tr>`; }
+          document.getElementById("data").innerHTML = body;
+        };
 
 
 
-
-
-
-
- <td>
-   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-${i}">
-     <img src="/perfil/hucha.png" alt="Hucha">
-   </button>
- </td>
- <div class="modal fade" id="modal-${i}" tabindex="-1" aria-labelledby="exampleModalLabel-${i}" aria-hidden="true">
- <div class="modal-dialog">
-   <div class="modal-content">
-     <div class="modal-header">
-       <h1 class="modal-title fs-5" id="exampleModalLabel-${i}">${data.data[i].name}</h1>
-       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-       </div>
-       <div class="modal-body">
-       <form id="formModal-${data.data[i].uid}">
-       <div class="mb-3">
-       <label for="amount-${i}" class="col-form-label">Depositar abono:</label>
-       <input type="text" class="form-control" id="amount-${data.data[i].uid}" name="amount" placeholder="Cantidad" required oninput="formatearMoneda(this)" maxlength="10" >
-       </div>
-       <div class="form-floating">
-       <select class="form-select" id="payment-method-${data.data[i].uid}" name="payment_method">
-       <option selected value="">Forma de pago</option>
-       <option value="cash">Efectivo</option>
-       <option value="transfer">Transferencia</option>
-       </select>
-       <label for="payment-method-${i}">Forma de pago</label>
-       </div>
-       <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-       <button type="submit" class="btn btn-primary" onclick="handleDataModal(${data.data[i].uid})">Enviar</button>
-       </div>
-       </form>
-       
-       
-       </div>
-       </div>
-       </div>
-       </tr>
-       </div>`;
-  }
-  document.getElementById("data").innerHTML = body;
-};
-
+        

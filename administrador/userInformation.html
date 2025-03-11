@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>userInformation</title>
+    <link rel="shortcut icon" href="../perfil/hucha.png" />
+    <link rel="stylesheet" href="../perfil/est-prefil.css">
+    <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <div class="cabecera">
+        <h1 id="container"> </h1>
+        <button onclick="borrarUsuario()">eliminar usuario</button>
+      
+      
+        
+        <a href="/administrador1.html"><img src="/perfil/salida.png" alt="Descripción del ícono" width="50" height="50"></a>
+      </div>
+
+   <div id="information">
+
+   </div>
+  
+  
+   <button onclick="redirigirWhatsApp()">
+       
+       <img src="/assets/whatsapp-icon.svg" alt="watsap" width="25px" id="botonWhatsapp" >
+    </button>
+  
+    
+    
+    <div class="titulomovimientos">
+        <h2>
+
+            Movimientos
+        </h2>
+    </div>
+
+    <body>
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th><i class="bi bi-calendar2-date-fill"></i></th>
+                    <th>Estado</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                    <th>borrar</th>
+                    <th>editar</th>
+                    <th>msj</th>
+                </tr>
+
+            </thead>
+            <tbody id="data">
+
+            </tbody>
+        </table>
+        <div id="noMovimientos">
+            <h3>No hay movimientos aún</h3>
+        </div>
+        <script  src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./userInformation.js"></script>
+</body>
+</html>
