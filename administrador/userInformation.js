@@ -8,13 +8,13 @@ var container = document.getElementById("container");
 
 
 
-function redirigirWhatsApp () {
+function redirigirWhatsApp () {console.log(phone)
   if (!phone || isNaN(phone)) {
     console.error("Número de teléfono inválido:", phone);
     alert("Número de teléfono no válido para WhatsApp.");
     return;
   }
-  window.open(`https://wa.me/${phone}`, '_blank');
+  window.open(`https://wa.me/+57${phone}`, '_blank');
 };
 
 
