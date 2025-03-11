@@ -49,10 +49,10 @@ fetch(
 )
   .then((response) => response.json())
   .then((data) => {
-    if (data.message === "invalid token") {
-      window.location.href = "/login.html";
-      return;
-    }
+    if (data.message==='Invalid token')
+      window.location.href = "../index.html"; 
+    mostrardata(data);
+    
     console.log("aqui esttoy",data);
     mostrardata(data);
   })
@@ -88,6 +88,7 @@ const borrartransaccion = (id) => {
     })
       .then((res) => res.json())
       .then((data) => {
+       
         console.log("Respuesta del servidor:", data);
         if (data.ok) {
           alert("Transacción eliminada con éxito");
@@ -95,6 +96,7 @@ const borrartransaccion = (id) => {
         } else {
           alert("No se pudo eliminar la transacción");
         }
+        
       })
       .catch((error) => {
         console.error("Error al eliminar la transacción:", error);
@@ -111,20 +113,51 @@ const mostrardata = (data) => {
     noMovimientos.style.display = "flex";
   } else {
     noMovimientos.style.display = "none";
-    data.message.forEach((item) => {
+    data.message.forEach((item,i) => {
+      
       body += ` 
            <tr>
               <td>${dateFormat(item.transaction_date)}</td>
               <td>${item.status}</td>
               <td>${item.type}</td>
               <td>${formatearMoneda(item.amount)}</td>
-              <td><i class="bi bi-trash-fill" onclick="borrartransaccion(${item.id})"></i> <td>
-              <td><i class="bi bi-pencil-fill"></i> <td>
+              <td><i class="bi bi-trash-fill" onclick="borrartransaccion(${item.id})"></i></td> 
+              <td><i class="bi bi-pencil-fill"></i></td>
+               <td>
+                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${item.id}">
+                      <i class="bi bi-chat-left-dots"></i>
+                   </button>
+
+               </td>
+
+                
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop${item.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel${item.id}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Mensaje</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      ${item.description}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
            </tr>
           `;
-          console.log("hola",item.id)
+          
+          
          
     });
+    
   }
 
   document.getElementById("data").innerHTML = body;

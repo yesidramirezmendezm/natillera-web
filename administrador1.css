@@ -42,3 +42,6 @@ div.cabecera img {
     .ojo{
         border: none;
     }
+    .table {
+        text-transform: capitalize;
+    }

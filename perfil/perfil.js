@@ -50,7 +50,7 @@ fetch("https://d2u0m9tidcq6y9.cloudfront.net/api/v1/transactions/get", {
   .then((response) => response.json())
   .then((data) => {
     
-    if (data.message==='Invaled token')
+    if (data.message==='Invalid token')
       window.location.href = "../index.html"; 
     mostrardata(data);
    
@@ -68,6 +68,7 @@ const dateFormat = (fecha) => {
 };
 var noMovimientos=document.getElementById("noMovimientos")
 const mostrardata = (data) => {
+  console.log(data.message)
   let body = "";
   if (data.message.length==0){
    
@@ -82,6 +83,32 @@ const mostrardata = (data) => {
                   <td>${data.message[i].status}</td>
                   <td>${data.message[i].type}</td>
                   <td>${formatearMoneda(data.message[i].amount)}</td>
+                  <td>
+                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop-${data.message[i].id}">
+                      <i class="bi bi-chat-left-dots"></i>
+                   </button>
+
+               </td>
+               <!-- Modal -->
+<div class="modal fade" id="staticBackdrop-${data.message[i].id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel-${data.message[i].id}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Mensaje</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      ${data.message[i].description}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
               </tr>
       `;
     }
