@@ -140,3 +140,12 @@ div.cargar img {
     top: 15px;
     background: #b4def1;
 }
+.alert{
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    bottom: 187px;
+}
+div.alert.show{
+    z-index: 10000;
+}
